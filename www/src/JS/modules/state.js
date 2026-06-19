@@ -1,0 +1,56 @@
+export { views, view1, view2, appState, alertElements, blockedKeys };
+
+const views = document.querySelectorAll(".view-container");
+
+// First screen elements
+const view1 = {
+  inputName: document.getElementById("NAME"),
+  enterBtn: document.getElementById("enterBtn"),
+};
+
+// Second screen elements
+const view2 = {
+  displayName: document.getElementById("nameOperator"),
+  lastPnReaded: document.getElementById("pnReaded"),
+
+  inputPN: document.getElementById("PN"),
+  inputQTY: document.getElementById("QTY"),
+
+  backBtn: document.getElementById("backBtn"),
+
+  clearBtn: document.getElementById("clearBtn"),
+  modeBtn: document.getElementById("modeBtn"),
+  printBtn: document.getElementById("printBtn"),
+};
+
+const alertElements = {
+  alertMessage: document.querySelector(".alertMessage"),
+  alertBtn: document.querySelector(".alertConfirm"),
+  modalAlert: document.querySelector(".alertModal"),
+};
+
+// State variables
+const appState = {
+  actualView: 0,
+  isAuto: true,
+  lastPn: "",
+  qtyCount: 0,
+  operatorName: "",
+  isPrinting: false,
+  alertOpen: false,
+};
+
+const blockedKeys = [
+  "F5",
+  "F6",
+  "F7",
+  "F8",
+  "F10",
+  "F11",
+  "F12",
+  "Alt",
+  "Control",
+  "Shift",
+  "Escape",
+];
+

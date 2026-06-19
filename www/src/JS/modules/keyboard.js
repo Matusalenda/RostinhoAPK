@@ -1,0 +1,141 @@
+import { appState, view1, view2, alertElements, blockedKeys } from "./state.js";
+import { customAlert, scanPn } from "./utils.js";
+
+function blockKeys(event) {
+  if (blockedKeys.includes(event.key)) {
+    event.preventDefault();
+  }
+}
+
+export function keyboardHandler(event) {
+  // Bloqueia Ctrl+P (impressão do navegador)
+  if (event.ctrlKey && event.key === "p") {
+    event.preventDefault();
+    return;
+  }
+
+  // Se o modal de alerta estiver aberto, bloqueia tudo e só permite fechar
+  if (appState.alertOpen) {
+    blockKeys(event);
+    if (
+      event.key === "Enter" ||
+      event.key === "F4" ||
+      event.key === "Escape" ||
+      event.key === "F9" ||
+      event.key === "Tab"
+    ) {
+      event.preventDefault();
+      alertElements.alertBtn.click();
+    }
+
+    if (
+      event.key === "F1" ||
+      event.key === "F2" ||
+      event.key === "F3" ||
+      blockedKeys.includes(event.key)
+    ) {
+      event.preventDefault();
+    }
+    return;
+  }
+
+  if (appState.actualView === 0) {
+    view1KeyboardHandler(event);
+  } else if (appState.actualView === 1) {
+    view2KeyboardHandler(event);
+  }
+}
+
+function view1KeyboardHandler(event) {
+  blockKeys(event);
+
+  switch (event.key) {
+    case "F1":
+    case "F2":
+    case "F3":
+    case "F9":
+      event.preventDefault();
+      break;
+    case "Enter":
+    case "Tab":
+    case "F4":
+      event.preventDefault();
+      if (appState.actualView === 0) {
+        if (view1.inputName.value.trim() !== "") {
+          view1.enterBtn.click();
+        } else {
+          customAlert("Insira o operador!");
+        }
+      }
+      break;
+  }
+}
+
+function view2KeyboardHandler(event) {
+  const inputElements = [view2.inputPN, view2.inputQTY];
+
+  const currentIndex = inputElements.indexOf(document.activeElement);
+
+  blockKeys(event);
+
+  switch (event.key) {
+    case "Enter":
+    case "Tab":
+    case "F4":
+      event.preventDefault();
+
+      if (appState.isAuto) {
+        // Modo AUTO
+        if (view2.inputPN.value.trim() === "") {
+          break;
+        } else {
+          // inputPN preenchido: escaneia
+          scanPn();
+        }
+      } else {
+        // Modo MANUAL: Enter passa para próximo input
+        if (currentIndex === inputElements.length - 1) {
+          break;
+        } else if (
+          currentIndex >= 0 &&
+          currentIndex < inputElements.length - 1
+        ) {
+          // Avança para próximo input
+          inputElements[currentIndex + 1].focus();
+        } else {
+          // Foco fora dos inputs: vai para o primeiro
+          inputElements[0].focus();
+        }
+      }
+      break;
+
+    case "F1":
+      event.preventDefault();
+      view2.printBtn.click();
+      break;
+    case "F2":
+      event.preventDefault();
+      view2.clearBtn.click();
+      break;
+    case "F3":
+      event.preventDefault();
+      view2.modeBtn.click();
+      break;
+    case "F9":
+      event.preventDefault();
+      view2.backBtn.click();
+      break;
+    case "ArrowUp":
+      event.preventDefault();
+      if (currentIndex > 0) {
+        inputElements[currentIndex - 1].focus();
+      }
+      break;
+    case "ArrowDown":
+      event.preventDefault();
+      if (currentIndex < inputElements.length - 1) {
+        inputElements[currentIndex + 1].focus();
+      }
+      break;
+  }
+}

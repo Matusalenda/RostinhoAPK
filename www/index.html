@@ -1,0 +1,95 @@
+<!-- are you really gonna inspect my code, huh? so enjoy the reading! 
+Developed by: Marcos Matusalem - 2026 -->
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover"
+    />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <meta name="mobile-web-app-capable" content="yes" />
+
+    <title>ROSTINHO</title>
+
+    <link rel="stylesheet" href="src/css/style.css" />
+
+    <link rel="icon" href="./src/img/icon-192.svg" type="image/svg+xml" />
+
+    <script src="src/JS/lib/qrcode-lib.js" defer></script>
+    <script src="src/JS/lib/jspdf-lib.js" defer></script>
+    <script type="module" src="src/JS/main.js"></script>
+  </head>
+
+  <body>
+    <!--  VIEW 1 - Operator name input -->
+    <div class="view-container">
+      <header class="top">
+        <img src="src/img/toyota-logo.png" alt="toyota-logo" /><span
+          >ROSTINHO</span
+        >
+        <div class="btns_invisible"></div>
+      </header>
+      <div class="inputNAME">
+        <div class="input-group">
+          <label class="labels" for="NAME">OPERADOR</label><br />
+          <input type="text" id="NAME" name="ID" autocomplete="off" />
+        </div>
+      </div>
+
+      <footer class="bottom">
+        <button class="btns_invisible" tabindex="-1">INVIS</button>
+        <button class="btns_invisible" tabindex="-1">INVIS</button>
+        <button class="btns_invisible" tabindex="-1">INVIS</button>
+        <button class="btns_visible" id="enterBtn" tabindex="-1">ENTER</button>
+      </footer>
+    </div>
+
+    <!--  VIEW 2 - Part number input -->
+    <div class="view-container INACTIVE">
+      <div class="header">
+        <div id="nameOperator"></div>
+        <button class="btns_visible" id="backBtn" tabindex="-1">BACK</button>
+      </div>
+      <div class="pnReaded-container">
+        <div class="pnReaded" id="pnReaded"></div>
+      </div>
+
+      <div class="inputPN">
+        <div class="input-group">
+          <label class="labels" for="PN">PART-NUMBER</label><br />
+          <input type="text" id="PN" name="PN" autocomplete="off" />
+        </div>
+        <div class="input-group">
+          <label class="labels" for="QTY">QUANTIDADE</label><br />
+          <input
+            type="number"
+            id="QTY"
+            name="QTY"
+            value="0"
+            autocomplete="off"
+            disabled
+          />
+        </div>
+      </div>
+
+      <footer class="bottom">
+        <button class="btns_visible" id="printBtn" tabindex="-1">PRINT</button>
+        <button class="btns_visible" id="clearBtn" tabindex="-1">CLEAR</button>
+        <button class="btns_visible" id="modeBtn" tabindex="-1">MODE</button>
+        <button class="btns_invisible2" tabindex="-1">INVIS</button>
+      </footer>
+    </div>
+
+    <!-- Customized alert to show errors -->
+    <div class="alertModal">
+      <div class="alertBox" role="dialog" aria-modal="true">
+        <div class="sign">!</div>
+
+        <span class="alertMessage"></span>
+        <button class="alertConfirm">OK</button>
+      </div>
+    </div>
+  </body>
+</html>
