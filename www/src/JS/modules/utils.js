@@ -190,3 +190,17 @@ export function pnFormat(pn) {
     return `${leftPn}-${midPn}`;
   }
 }
+
+export function formatQty(qty) {
+  const qtyNum = Number(qty);
+  const text = Number.isFinite(qtyNum)
+    ? new Intl.NumberFormat("pt-BR", {
+        maximumFractionDigits: 0,
+      }).format(qtyNum)
+    : String(qty ?? "").trim();
+
+  const scaleX = qtyNum >= 100000 ? 0.85 : 1;
+  const fontSize = Math.round((qtyNum >= 100000 ? 135 : 140) * scaleX);
+
+  return { text, fontSize, scaleX };
+}

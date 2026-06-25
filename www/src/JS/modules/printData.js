@@ -1,5 +1,5 @@
 import { view2, appState } from "./state.js";
-import { clear, customAlert, initFocus } from "./utils.js";
+import { clear, customAlert, initFocus, formatQty } from "./utils.js";
 import { playSuccessSound } from "./audio.js";
 
 export function printData() {
@@ -125,8 +125,9 @@ export async function generatePdf(data = getPrintData()) {
 
 // Quantidade
   doc.setFont("helvetica", "bold");
-  doc.setFontSize(150);
-  doc.text(data.qty, 105, 235, { align: "center" });
+  const { text, fontSize } = formatQty(data.qty);
+  doc.setFontSize(fontSize);
+  doc.text(text, 105, 235, { align: "center" });
   doc.addImage(qrQty, "PNG", 95, 243, 20, 20);
 
   // Faixa do historico da reserva.
